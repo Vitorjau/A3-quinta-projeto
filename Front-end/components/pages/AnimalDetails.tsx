@@ -20,8 +20,31 @@ export function AnimalDetails({ animal, onNavigate }: AnimalDetailsProps) {
     name: "",
     email: "",
     phone: "",
+    cep: "",
+    address: "",
+    number: "",
+    complement: "",
+    city: "",
+    state: "",
     message: ""
   });
+
+  const handleSearchCep = async () => {
+    const cep = formData.cep.replace(/\D/g, "");
+    
+    if (cep.length !== 8) {
+      toast.error("CEP inválido. Digite um CEP com 8 dígitos.");
+      return;
+    }
+
+    try {
+      // API de CEP será implementada no back-end
+      // Por enquanto, apenas mostramos uma mensagem
+      toast.info("Função de busca de CEP será integrada em breve");
+    } catch (error) {
+      toast.error("Erro ao buscar CEP. Tente novamente.");
+    }
+  };
 
   const handleShare = () => {
     toast.success("Link copiado para a área de transferência!");
@@ -169,6 +192,98 @@ export function AnimalDetails({ animal, onNavigate }: AnimalDetailsProps) {
                     onChange={handleChange}
                     placeholder="(00) 00000-0000"
                   />
+                </div>
+
+                <div className="border-t pt-4 mt-4">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Endereço de Entrega</h3>
+                  
+                  <div>
+                    <Label htmlFor="cep">CEP *</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        id="cep"
+                        name="cep"
+                        value={formData.cep}
+                        onChange={handleChange}
+                        placeholder="00000-000"
+                        maxLength={9}
+                        className="flex-1"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleSearchCep}
+                        className="px-4"
+                      >
+                        Buscar
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="address">Rua/Avenida *</Label>
+                    <Input
+                      id="address"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleChange}
+                      placeholder="Digite seu endereço"
+                      required
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="number">Número *</Label>
+                      <Input
+                        id="number"
+                        name="number"
+                        value={formData.number}
+                        onChange={handleChange}
+                        placeholder="Ex: 123"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="complement">Complemento</Label>
+                      <Input
+                        id="complement"
+                        name="complement"
+                        value={formData.complement}
+                        onChange={handleChange}
+                        placeholder="Apto, sala, etc"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="col-span-2">
+                      <Label htmlFor="city">Cidade *</Label>
+                      <Input
+                        id="city"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        placeholder="Digite sua cidade"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="state">Estado *</Label>
+                      <Input
+                        id="state"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleChange}
+                        placeholder="MG, SP, etc"
+                        maxLength={2}
+                        className="uppercase"
+                        required
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div>
