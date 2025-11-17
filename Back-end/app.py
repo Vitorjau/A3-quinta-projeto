@@ -10,10 +10,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 from config import config
 from database.models import db
-from routes.animals_routes import bp as animals_bp
-from routes.adoption_routes import bp as adoption_bp
-from routes.address_routes import bp as address_bp
-from routes.contact_routes import bp as contact_bp
+from routes.animals_routes import animals_bp
+from routes.adoption_routes import adoption_bp
+from routes.address_routes import address_bp
+from routes.contact_routes import contact_bp, feedback_bp
 
 def create_app(config_name: str = None) -> Flask:
     """
@@ -49,6 +49,7 @@ def create_app(config_name: str = None) -> Flask:
     app.register_blueprint(adoption_bp)
     app.register_blueprint(address_bp)
     app.register_blueprint(contact_bp)
+    app.register_blueprint(feedback_bp)
     
     # Contexto de aplicação para operações de banco de dados
     with app.app_context():
